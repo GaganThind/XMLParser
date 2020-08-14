@@ -18,7 +18,23 @@ import com.logtoxml.util.LogToXMLConstants;
 public class MainHomePageForApplication {
 
 	private static MainHomePageForApplication mainHomePageForApplication = null;
+	
+	private MainHomePageForApplication() { }
 
+	public static MainHomePageForApplication getInstance() {
+		
+		// Thread safe Singleton instance
+		if (null == mainHomePageForApplication) {
+			Object mutex = new Object();
+			synchronized(mutex) {
+				mainHomePageForApplication = new MainHomePageForApplication();
+			}
+		}
+		
+		return mainHomePageForApplication;
+	}
+
+	// Button Area
 	private JButton btnForSelectingLogFileinStarting;
 	private JButton btnfindingSpecialCharInMainHome;
 	private JButton btnParse;
@@ -33,13 +49,6 @@ public class MainHomePageForApplication {
 	private DirectoryBean objVarConatiningAllData;
 
 	private File fileWithXMLData;
-
-	private MainHomePageForApplication() {
-	}
-
-	public static MainHomePageForApplication getInstance() {
-		return mainHomePageForApplication == null ? new MainHomePageForApplication() : mainHomePageForApplication;
-	}
 
 	public void initializeMainPage() {
 		initializeTxtPath();
